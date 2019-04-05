@@ -795,10 +795,9 @@ const stub = {
       }
     }
     return [
-      nockWithAuthorization(auth.bearer)
-        .get(`/api/v1/namespaces/${namespace}`)
-        .reply(200, () => getProjectNamespace(namespace)),
       nockWithAuthorization(bearer)
+        .get(`/api/v1/namespaces/${namespace}`)
+        .reply(200, () => getProjectNamespace(namespace))
         .get(`/apis/garden.sapcloud.io/v1beta1/projects/${name}`)
         .reply(statusCode, () => result)
     ]
@@ -831,10 +830,9 @@ const stub = {
     const newProject = _.cloneDeep(project)
 
     return [
-      nockWithAuthorization(auth.bearer)
-        .get(`/api/v1/namespaces/${namespace}`)
-        .reply(200, () => getProjectNamespace(namespace)),
       nockWithAuthorization(bearer)
+        .get(`/api/v1/namespaces/${namespace}`)
+        .reply(200, () => getProjectNamespace(namespace))
         .get(`/apis/garden.sapcloud.io/v1beta1/projects/${name}`)
         .reply(200, () => project)
         .patch(`/apis/garden.sapcloud.io/v1beta1/projects/${name}`, body => {
@@ -849,10 +847,9 @@ const stub = {
     const name = _.get(project, 'metadata.name')
     const confirmationPath = ['metadata', 'annotations', 'confirmation.garden.sapcloud.io/deletion']
     return [
-      nockWithAuthorization(auth.bearer)
-        .get(`/api/v1/namespaces/${namespace}`)
-        .reply(200, () => getProjectNamespace(namespace)),
       nockWithAuthorization(bearer)
+        .get(`/api/v1/namespaces/${namespace}`)
+        .reply(200, () => getProjectNamespace(namespace))
         .get(`/apis/garden.sapcloud.io/v1beta1/namespaces/${namespace}/shoots`)
         .reply(200, {
           items: []
@@ -871,15 +868,14 @@ const stub = {
     const project = readProject(namespace)
     if (project) {
       return [
-        nockWithAuthorization(auth.bearer)
-          .get(`/api/v1/namespaces/${namespace}`)
-          .reply(200, () => getProjectNamespace(namespace)),
         nockWithAuthorization(bearer)
+          .get(`/api/v1/namespaces/${namespace}`)
+          .reply(200, () => getProjectNamespace(namespace))
           .get(`/apis/garden.sapcloud.io/v1beta1/projects/${project.metadata.name}`)
           .reply(200, () => project)
       ]
     }
-    return nockWithAuthorization(auth.bearer)
+    return nockWithAuthorization(bearer)
       .get(`/api/v1/namespaces/${namespace}`)
       .reply(404, () => {
         return {
@@ -907,7 +903,7 @@ const stub = {
         .reply(200, () => newProject)
     }
     return [
-      nockWithAuthorization(auth.bearer)
+      nockWithAuthorization(bearer)
         .get(`/api/v1/namespaces/${namespace}`)
         .reply(200, () => getProjectNamespace(namespace)),
       scope
@@ -933,7 +929,7 @@ const stub = {
         .reply(200, () => newProject)
     }
     return [
-      nockWithAuthorization(auth.bearer)
+      nockWithAuthorization(bearer)
         .get(`/api/v1/namespaces/${namespace}`)
         .reply(200, () => getProjectNamespace(namespace)),
       scope
@@ -947,7 +943,7 @@ const stub = {
       .get(`/apis/garden.sapcloud.io/v1beta1/projects/${name}`)
       .reply(200, () => project)
     const scopes = [
-      nockWithAuthorization(auth.bearer)
+      nockWithAuthorization(bearer)
         .get(`/api/v1/namespaces/${namespace}`)
         .reply(200, () => getProjectNamespace(namespace)),
       scope
